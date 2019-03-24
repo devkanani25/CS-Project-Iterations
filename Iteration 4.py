@@ -1,5 +1,6 @@
 #Reset Image
 #Descriptions for each functionality
+#Logo
 
 from tkinter import *
 from PIL import Image, ImageEnhance, ImageOps, ImageTk
@@ -14,6 +15,9 @@ from tkinter.filedialog import askopenfile
 imageOriginal = Image.new('RGB', (510, 510),'white')#creates the image imageOriginal
 imageReset = Image.new('RGB', (510, 510),'white')#creates the image imageReset
 imageOriginalsize = imageOriginal.size #calculates the image's dimensions
+imageResetsize = imageReset.size #calculates the image's dimensions
+imageA = Image.open('Image Editor Logo 2.png') #opens the logo image
+imageA.thumbnail((510,510)) #makes it a thumbnail to display on the screen window
 
 #-----------------------
 # END
@@ -42,9 +46,9 @@ def open_image():
         imageOriginal.thumbnail((510,510)) #creates a thumbnail image of imageOriginal to display it in the window
         imageReset.thumbnail((510,510)) #creates a copy of the thumbnail image
         imageDisplay = ImageTk.PhotoImage(imageOriginal) #creates a new variable imageDisplay which converts imageOriginal into a Tkinter readable format
-        labelphoto.config(image = imageDisplay)
-        labelphoto.photo_ref = imageDisplay #keep a reference
-        labelphoto.grid()
+        labelPhoto.config(image = imageDisplay)
+        labelPhoto.photo_ref = imageDisplay #keep a reference
+        labelPhoto.grid()
         sizeLabel = Label(window,text=(imageOriginalsize[0],'x', imageOriginalsize[1]),fg="white",bg="gray25") #creates a label widget to display the image's size
         sizeLabel.grid(column=0,row=9,padx=10,pady=10) #positions the sizeLabel label widget
 
@@ -71,7 +75,7 @@ def help_message():
     aboutWindow.title("Help") #title for the help functionality window
     aboutLabel = Label(aboutWindow,text="This is the Image Editor. To use, please enter the input corresponding to the desired editing option in the input box. Then, press 'Submit' to run the process. If you wish to close the Editor, please press 'Exit' in the top menu.",wraplength=400,bg="gray24",fg="white")
     aboutLabel.pack() #positions the label widget aboutLabel automatically
-    OKButton = Button(aboutWindow,text="OK",width=10,command=openImage,bg="gray25",fg="white").pack() #creates and positions a button called 'OK' that will shut the window when pressed
+    OKButton = Button(aboutWindow,text="OK",width=10,command=aboutWindow.destroy,bg="gray25",fg="white").pack() #creates and positions a button called 'OK' that will shut the window when pressed
     aboutWindow.mainloop()
 
 #------------------------
@@ -88,9 +92,9 @@ def brightness_image():
         imageOriginal = en.enhance(float(brightnessval.get()))
         #asks user for input of how bright the image should be
         imageDisplay = ImageTk.PhotoImage(imageOriginal)
-        labelphoto.config(image = imageDisplay)
-        labelphoto.photo_ref = imageDisplay #keep a reference
-        labelphoto.grid() 
+        labelPhoto.config(image = imageDisplay)
+        labelPhoto.photo_ref = imageDisplay #keep a reference
+        labelPhoto.grid() 
     
 #------------------------
 # CONTRAST SUBROUTINE
@@ -106,9 +110,9 @@ def contrast_image():
         imageOriginal = en.enhance(float(contrastval.get()))
         #asks user for input on how much to contrast the image by
         imageDisplay = ImageTk.PhotoImage(imageOriginal)
-        labelphoto.config(image = imageDisplay)
-        labelphoto.photo_ref = imageDisplay #keep a reference
-        labelphoto.grid()
+        labelPhoto.config(image = imageDisplay)
+        labelPhoto.photo_ref = imageDisplay #keep a reference
+        labelPhoto.grid()
 
 #------------------------
 # SATURATE SUBROUTINE
@@ -120,9 +124,9 @@ def saturate_image():
     imageOriginal = en.enhance(float(saturateval.get()))
     #asks user for input of how much saturation they would like
     imageDisplay = ImageTk.PhotoImage(imageOriginal)
-    labelphoto.config(image = imageDisplay)
-    labelphoto.photo_ref = imageDisplay #keep a reference
-    labelphoto.grid()
+    labelPhoto.config(image = imageDisplay)
+    labelPhoto.photo_ref = imageDisplay #keep a reference
+    labelPhoto.grid()
 
 #------------------------
 # BLUR SUBROUTINE
@@ -138,9 +142,9 @@ def blursharpen_image():
         imageOriginal = en.enhance(float(blurval.get()))
         #asks user for input on how sharp/blurred they want the image
         imageDisplay = ImageTk.PhotoImage(imageOriginal)
-        labelphoto.config(image = imageDisplay)
-        labelphoto.photo_ref = imageDisplay #keep a reference
-        labelphoto.grid() 
+        labelPhoto.config(image = imageDisplay)
+        labelPhoto.photo_ref = imageDisplay #keep a reference
+        labelPhoto.grid() 
 
 #------------------------
 # FILTER SUBROUTINE
@@ -164,9 +168,9 @@ def filter_image():
     imageOriginal = ImageOps.colorize(imageGrayscale,filterval.get(),filterval1.get())
     #colorizes the image as per the user's input
     imageDisplay = ImageTk.PhotoImage(imageOriginal)
-    labelphoto.config(image = imageDisplay)
-    labelphoto.photo_ref = imageDisplay #keep a reference
-    labelphoto.grid() 
+    labelPhoto.config(image = imageDisplay)
+    labelPhoto.photo_ref = imageDisplay #keep a reference
+    labelPhoto.grid() 
 
 
 #------------------------
@@ -177,17 +181,17 @@ def flip_horizontal():
     global imageOriginal
     imageOriginal = imageOriginal.transpose(Image.FLIP_LEFT_RIGHT) #transposes the image vertically
     imageDisplay = ImageTk.PhotoImage(imageOriginal)
-    labelphoto.config(image = imageDisplay)
-    labelphoto.photo_ref = imageDisplay #keep a reference
-    labelphoto.grid() 
+    labelPhoto.config(image = imageDisplay)
+    labelPhoto.photo_ref = imageDisplay #keep a reference
+    labelPhoto.grid() 
 
 def flip_vertical():
     global imageOriginal
     imageOriginal = imageOriginal.transpose(Image.FLIP_TOP_BOTTOM) #transposes the image horizontally
     imageDisplay = ImageTk.PhotoImage(imageOriginal)
-    labelphoto.config(image = imageDisplay)
-    labelphoto.photo_ref = imageDisplay #keep a reference
-    labelphoto.grid() 
+    labelPhoto.config(image = imageDisplay)
+    labelPhoto.photo_ref = imageDisplay #keep a reference
+    labelPhoto.grid() 
 
 def flip_input():
     #flip_orientation = input("How would you like to flip your image? For Left-Right, type 1, for Top-Bottom, type 2: ")
@@ -217,9 +221,9 @@ def resize_image():
         #asks user for input on width and height
         sizeLabel = Label(window,text=(int(resizexval.get()),'x', int(resizeyval.get())),fg="white",bg="gray25").grid(column=0,row=9,padx=10,pady=10)
         imageDisplay = ImageTk.PhotoImage(imageOriginal)
-        labelphoto.config(image = imageDisplay)
-        labelphoto.photo_ref = imageDisplay #keep a reference
-        labelphoto.grid()
+        labelPhoto.config(image = imageDisplay)
+        labelPhoto.photo_ref = imageDisplay #keep a reference
+        labelPhoto.grid()
 
 #------------------------
 # ROTATE SUBROUTINE
@@ -234,9 +238,9 @@ def rotate_image():
       imageOriginal = imageOriginal.rotate(360-int(rotateval.get()),expand=True) 
       #asks user for angle input, 'expand' makes sure that the new image fits
       imageDisplay = ImageTk.PhotoImage(imageOriginal)
-      labelphoto.config(image = imageDisplay)
-      labelphoto.photo_ref = imageDisplay #keep a reference
-      labelphoto.grid()
+      labelPhoto.config(image = imageDisplay)
+      labelPhoto.photo_ref = imageDisplay #keep a reference
+      labelPhoto.grid()
 
 #------------------------
 # CROP SUBROUTINE
@@ -248,9 +252,9 @@ def crop_imageops():
     imageOriginal = ImageOps.crop(imageOriginal,border=int(cropval.get()))
     #asks user for input of pixels to crop the image by, in both dimensions
     imageDisplay = ImageTk.PhotoImage(imageOriginal)
-    labelphoto.config(image = imageDisplay)
-    labelphoto.photo_ref = imageDisplay #keep a reference
-    labelphoto.grid()
+    labelPhoto.config(image = imageDisplay)
+    labelPhoto.photo_ref = imageDisplay #keep a reference
+    labelPhoto.grid()
     
 #------------------------
 # RESET IMAGE SUBROUTINE
@@ -259,11 +263,14 @@ def crop_imageops():
 def reset_image():
     global imageOriginal
     global imageReset
+    global imageResetsize
     imageOriginal = imageReset
     imageDisplay = ImageTk.PhotoImage(imageOriginal)
-    labelphoto.config(image = imageDisplay)
-    labelphoto.photo_ref = imageDisplay #keep a reference
-    labelphoto.grid() 
+    labelPhoto.config(image = imageDisplay)
+    labelPhoto.photo_ref = imageDisplay #keep a reference
+    labelPhoto.grid()
+    sizeLabel = Label(window,text=(imageResetsize[0],'x', imageResetsize[1]),fg="white",bg="gray25") #creates a label widget to display the image's size
+    sizeLabel.grid(column=0,row=9,padx=10,pady=10) #positions the sizeLabel label widget
 
 #------------------------
 # END
@@ -284,14 +291,21 @@ window.configure(background = "gray22") #sets the colour as 'gray22'
 #Below are the variables as 'StringVar()' data type for use in the algorithms in back-end. They are taken from entry fields:
 
 imageDisplay = ImageTk.PhotoImage(imageOriginal)
+imageLogo = ImageTk.PhotoImage(imageA)
 brightnessval = StringVar()
+brightnessval.set("1")
 resizexval = StringVar()
+resizexval.set("x")
 resizeyval = StringVar()
+resizeyval.set("y")
 rotateval = StringVar()
 blurval = StringVar()
+blurval.set("0")
 flipval = StringVar()
 contrastval = StringVar()
+contrastval.set("1")
 saturateval= StringVar()
+saturateval.set("1")
 cropval = StringVar()
 filterval = StringVar()
 filterval.set("BLACK")
@@ -310,9 +324,15 @@ file.add_command(label = 'Save', command = save_image) #creates a new menu item 
 file.add_command(label = "Help", command = help_message) #creates a new menu item to activate the help functionality, passing the help_message subroutine as the command
 file.add_command(label = 'Exit', command = lambda:exit()) #creates a new menu item to close the window and stop running the program
 
-labelphoto = Label(window,image=imageDisplay) #Creates a label widget to allow display of the image in the window
-labelphoto.imageDisplay = imageDisplay #keeps a reference
-labelphoto.grid(column=2,row=9,padx=10,pady=10) #places the label widget in a specified location on the window, using a grid
+labelPhoto = Label(window,image=imageDisplay) #Creates a label widget to allow display of the image in the window
+labelPhoto.imageDisplay = imageDisplay #keeps a reference
+labelPhoto.grid(column=2,row=9,padx=10,pady=10) #places the label widget in a specified location on the window, using a grid
+
+labelLogo = Label(window,image=imageLogo,borderwidth=0)
+labelLogo.imageLogo = imageLogo
+labelLogo.grid(column=6,row=9,padx=10,pady=10)
+
+
 
 #------------------------
 # END
@@ -325,53 +345,58 @@ labelphoto.grid(column=2,row=9,padx=10,pady=10) #places the label widget in a sp
 #-----------------------
 
 brightnessLabel = Label(window,text="Brightness",bg="gray24",fg="white") #creates a label widget to identify the Brightness function
-brightnessLabel.grid(row = 0, column = 0, padx = 10, pady=10) #sets dimensions of the label widget
+brightnessLabel.grid(row = 0, column = 0, padx = 10, pady = 10) #sets dimensions of the label widget
 brightnessSlider = Scale(window,bg="gray25",fg="white",from_=0,to=5,tickinterval=1,variable=brightnessval,
-                         orient=HORIZONTAL,length=500,troughcolor="gray30",highlightbackground="gray25",resolution=0.1,width=7,sliderlength=35) #creates a slider to adjust the brightness
+                         orient=HORIZONTAL,length=510,troughcolor="gray30",highlightbackground="gray25",resolution=0.1,width=7,sliderlength=35) #creates a slider to adjust the brightness
 brightnessSlider.grid(row=0,column=2,padx=5,pady=1) #sets dimensions of the scale widget
 brightnessSubmit = Button(window,text="Submit",width=10,command=brightness_image,bg="gray25",fg="white").grid(row=0,column=5,padx=5,pady=5)
 #creates button that runs the Brightness function, passing the value of the slider as the input
+brightnessDescription = Label(window,text="Default value: 1. To darken: select a value below 1 (e.g. 0.5). To lighten: select a value above 1 (e.g. 2).",bg="gray24",fg="white").grid(row = 0,column = 6, padx = 10, pady = 10) #creates a label widget to instruct the user
 
 #-----------------------
 
 contrastLabel = Label(window,text="Contrast",bg="gray24",fg="white") #creates a label widget to identify the Contrast function
 contrastLabel.grid(row = 1, column = 0, padx = 10, pady=10) #sets dimensions of the label widget
 contrastSlider = Scale(window,bg="gray24",fg="white",from_=0,to=5,tickinterval=1,variable=contrastval,
-                       orient=HORIZONTAL,length=500,troughcolor="gray30",highlightbackground="gray24",resolution=0.1,width=7,sliderlength=35) #creates a slider to adjust the contrast
+                       orient=HORIZONTAL,length=510,troughcolor="gray30",highlightbackground="gray24",resolution=0.1,width=7,sliderlength=35) #creates a slider to adjust the contrast
 contrastSlider.grid(row=1,column=2,padx=5,pady=1) #sets dimensions of the scale widget
 contrastSubmit = Button(window,text="Submit",width=10,command=contrast_image,bg="gray25",fg="white").grid(row=1,column=5,padx=5)
 #creates button that runs the Contrast function, passing the value of the slider as the input
+contrastDescription = Label(window,text="Default value: 1. To decrease: select a value below 1 (e.g. 0.5). To increase: select a value above 1 (e.g. 2).",bg="gray24",fg="white").grid(row = 1,column = 6, padx = 10, pady = 10) #creates a label widget to instruct the user
 
 #-----------------------
 
 saturateLabel = Label(window,text="Saturate",bg="gray24",fg="white") #creates a label widget to identify the Saturate function
 saturateLabel.grid(row = 2, column = 0, padx = 10, pady=10) #sets dimensions of the label widget
 saturateSlider = Scale(window,bg="gray24",fg="white",from_=0,to=5,tickinterval=1,variable=saturateval,
-                       orient=HORIZONTAL,length=500,troughcolor="gray30",highlightbackground="gray24",resolution=0.1,width=7,sliderlength=35) #creates a slider to adjust the saturation
+                       orient=HORIZONTAL,length=510,troughcolor="gray30",highlightbackground="gray24",resolution=0.1,width=7,sliderlength=35) #creates a slider to adjust the saturation
 saturateSlider.grid(row=2,column=2,padx=5,pady=1) #sets dimensions of the scale widget
 saturateSubmit = Button(window,text="Submit",width=10,command=saturate_image,bg="gray25",fg="white").grid(row=2,column=5,padx=5)
 #creates button that runs the Saturate function, passing the value of the slider as the input
+saturateDescription = Label(window,text="Default value: 1. To decrease: select a value below 1 (e.g. 0.5). To increase: select a value above 1 (e.g. 2).",bg="gray24",fg="white").grid(row = 2,column = 6, padx = 10, pady = 10) #creates a label widget to instruct the user
 
 #-----------------------
 
 blurLabel = Label(window,text="Sharpen/Blur",bg="gray24",fg="white") #creates a label widget to identify the Blur/Sharpen function
 blurLabel.grid(row = 3, column = 0, padx = 10, pady=10) #sets dimensions of the label widget
 blurSlider = Scale(window,bg="gray24",fg="white",from_=-5,to=5,tickinterval=1,variable=blurval,
-                   orient=HORIZONTAL,length=500,troughcolor="gray30",highlightbackground="gray24",resolution=1,width=7,sliderlength=35) #creates a slider to adjust the sharpness
+                   orient=HORIZONTAL,length=510,troughcolor="gray30",highlightbackground="gray24",resolution=1,width=7,sliderlength=35) #creates a slider to adjust the sharpness
 blurSlider.grid(row=3,column=2,padx=5,pady=1) #sets dimensions of the scale widget
 blursubmit = Button(window,text="Submit",width=10,command=blursharpen_image,bg="gray25",fg="white").grid(row=3,column=5,padx=5)
 #creates button that runs the Blur/Sharpen function, passing the value of the slider as the input
+blurDescription = Label(window,text="Default value: 0. To blur: select a value below 0 (e.g. -3). To sharpen: select a value above 0 (e.g. 4).",bg="gray24",fg="white").grid(row = 3,column = 6, padx = 10, pady = 10) #creates a label widget to instruct the user
 
 #-----------------------
 
 filterLabel = Label(window,text="Filter",bg="gray24",fg="white") #creates a label widget to identify the Filter function
 filterLabel.grid(row = 4, column = 0, padx = 10, pady=10) #sets dimensions of the label widget
-filterMenu = OptionMenu(window,filterval,"BLACK","WHITE","YELLOW","RED","BLUE","GREEN","ORANGE","PINK","TURQUOISE","FUCHSIA","INVERSE") #creates an Option Menu to change the first colour
+filterMenu = OptionMenu(window,filterval,"BLACK","WHITE","YELLOW","RED","BLUE","GREEN","ORANGE","PINK","TURQUOISE","FUCHSIA") #creates an Option Menu to change the first colour
 filterMenu.grid(row=4,column=3,padx=10,pady=10) #sets dimensions of the OptionMenu widget
 filter1Menu = OptionMenu(window,filterval1,"BLACK","WHITE","YELLOW","RED","BLUE","GREEN","ORANGE","PINK","TURQUOISE","FUCHSIA") #creates an Option Menu to change the second colour
 filter1Menu.grid(row=4,column=4,padx=10,pady=10) #sets dimensions of the OptionMenu widget
 filter1submit = Button(window,text="Submit",width=10,command=filter_image,bg="gray25",fg="white").grid(row=4,column=5,padx=5,pady=5)
 #creates button that runs the Blur/Sharpen function, passing the values of the two filter Option Menus as the inputs
+filterDescription = Label(window,text="Default: Black & White. Click on menus to select colours.",bg="gray24",fg="white").grid(row = 4,column = 6, padx = 10, pady = 10) #creates a label widget to instruct the user
 
 #-----------------------
 
@@ -380,6 +405,7 @@ flipLabel.grid(row = 5, column = 0, padx = 10, pady=15) #sets dimensions of the 
 flipMenu = OptionMenu(window,flipval,"1","2").grid(row=5,column=3,padx=5) #creates an Option Menu to change the orientation of the flip, and sets dimensions
 flipSubmit = Button(window,text="Submit",width=10,command=flip_input,bg="gray25",fg="white").grid(row=5,column=5,padx=5)
 #creates button that runs the Flip function, passing the value of the Option Menu as the input
+flipDescription = Label(window,text="To flip horizontally: select 1. To flip vertically: select 2.",bg="gray24",fg="white").grid(row = 5,column = 6, padx = 10, pady = 10) #creates a label widget to instruct the user
 
 #-----------------------
 
@@ -389,6 +415,7 @@ xvalEntry = Entry(window,textvariable=resizexval,width=5).grid(row=6,column=3,pa
 yvalEntry = Entry(window,textvariable=resizeyval,width=5).grid(row=6,column=4,padx=5) #creates an Entry box to set the y-value for resizing the image, and sets dimensions
 resizesubmit = Button(window,text="Submit",width=10,command=resize_image,bg="gray25",fg="white").grid(row=6,column=5,padx=5)
 #creates button that runs the Resize function, passing the x- and y-values as the input
+resizeDescription = Label(window,text="To resize: enter x-value (0 to 1000) then y-value (0 to 1000).",bg="gray24",fg="white").grid(row = 6,column = 6, padx = 10, pady = 10) #creates a label widget to instruct the user
 
 #-----------------------
 
@@ -397,6 +424,7 @@ rotateLabel.grid(row = 7, column = 0, padx = 10, pady=15) #sets dimensions of th
 rotateentry = Entry(window,textvariable=rotateval,width=5).grid(row=7,column=3,padx=5) #creates an Entry box to set the rotation degree for rotating the image, and sets dimensions
 rotatesubmit = Button(window,text="Submit",width=10,command=rotate_image,bg="gray25",fg="white").grid(row=7,column=5,padx=5)
 #creates button that runs the Rotate function, passing the rotation degree value as the input
+resizeDescription = Label(window,text="To rotate (clockwise): enter a degree between 0 and 360.",bg="gray24",fg="white").grid(row = 7,column = 6, padx = 10, pady = 10) #creates a label widget to instruct the user
 
 #-----------------------
 
@@ -405,6 +433,7 @@ cropLabel.grid(row = 8, column = 0, padx = 10, pady=15) #sets dimensions of the 
 cropentry = Entry(window,textvariable=cropval,width=5).grid(row=8,column=3,padx=5) #creates an Entry box to set the crop value for cropping the image, and sets dimensions
 cropsubmit = Button(window,text="Submit",width=10,command=crop_imageops,bg="gray25",fg="white").grid(row=8,column=5,padx=5)
 #creates button that runs the Crop function, passing the crop value as the input
+cropDescription = Label(window,text="To crop: enter a value above 0.",bg="gray24",fg="white").grid(row = 8,column = 6, padx = 10, pady = 10) #creates a label widget to instruct the user
 
 #-----------------------
 
@@ -417,4 +446,5 @@ window.mainloop()
 #------------------------
 # END
 #------------------------
+
 

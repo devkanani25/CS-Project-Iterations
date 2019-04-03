@@ -1,0 +1,14 @@
+#------------------------
+# BRIGHTEN/DIM ALGORITHM
+#------------------------
+
+def brightness_image():
+    global imageOriginal
+    en=ImageEnhance.Brightness(imageOriginal) #enables change in brightness
+    #image_enhanced = en.enhance(float(input("Enter a value between 0 and 10: ")))
+    imageOriginal = en.enhance(float(brightnessval.get()))
+    #gets the brightnessval as an input
+    imageDisplay = ImageTk.PhotoImage(imageOriginal)
+    labelPhoto.config(image = imageDisplay)
+    labelPhoto.photo_ref = imageDisplay #keep a reference
+    labelPhoto.grid() 
